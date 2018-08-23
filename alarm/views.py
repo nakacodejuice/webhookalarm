@@ -40,19 +40,19 @@ def viber(request):
 
 def SendMain(self, id):
     keyboard = Keyboard()
-    keyboard.AddButton(2, 2, "Данные по чекам", "small", "center", "bottom", "reply", "Взаиморасчеты", "#f6f7f9",
+    keyboard.AddButton(2, 2, "Данные по чекам", "small", "center", "bottom", "reply", "Данные по чекам", "#f6f7f9",
                            ImageKKT)
     keyboard.AddButton(2, 2, "Показания по смс", "small", "center", "bottom", "reply",
-                           "Передать показания счетчика", "#f6f7f9",
+                           "Показания по смс", "#f6f7f9",
                            ImageSMS)
-    keyboard.AddButton(2, 2, "ГИС ЖКХ", "small", "center", "bottom", "reply", "Адреса пунктов", "#f6f7f9",
+    keyboard.AddButton(2, 2, "ГИС ЖКХ", "small", "center", "bottom", "reply", "ГИС ЖКХ", "#f6f7f9",
                            ImageGIS)
     SendMessage(id, 'Выберите действие', keyboard.CreateKeyboard())
 
 
 def SendMessage(self,id, text,keyboard=''):
     message = structSendMessage(id, text,'',keyboard)
-    headers = {'content-type': 'application/json'}
+    headers = {'content-type': 'application/json','X-Viber-Auth-Token': TokenViber}
     res = requests.post(hostviber + '/pa/send_message', json=message, headers=headers)
     if res.status_code == 200:
         return True
